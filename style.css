@@ -54,3 +54,37 @@ h2 {
 .custom-logo{
 	border-radius: 5px 5px;
 }
+
+
+.comment-form label {
+	display: inline-block;
+	width:40%;
+}
+
+.comment-form {
+	border-radius: 7px;
+	border: 1px solid #DDD;
+	background-color: #EEE;
+	padding:6px;
+}
+
+.comment-form input {
+	display: inline-block;
+	width:55%;
+	border-radius: 7px;
+	border: 1px solid #DDD;
+}
+
+.comment-form-comment label {
+	display: block;
+}
+
+.comment-form-comment textarea {
+	display: block;
+	width:100%;
+}
+
+
+.comment-form #submit{
+	padding:6px 8px;
+}
