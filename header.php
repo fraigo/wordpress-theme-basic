@@ -62,7 +62,7 @@
 						<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<?php foreach( get_categories() as $item) {?>
-							<a class="dropdown-item" href="<?php echo esc_url(home_url() . "/category/" . $item->slug) ?>"><?php echo $item->name ?></a>
+							<a class="dropdown-item" href="<?php echo get_category_link($item->term_id); ?>"><?php echo $item->name ?></a>
 							<?php } ?>
 						</div>
 					</li>
@@ -70,7 +70,7 @@
 						<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tags</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown01">
 							<?php foreach( $tags as $item) {?>
-							<a class="dropdown-item" href="<?php echo esc_url(home_url() . "/tag/" . $item->slug) ?>"><?php echo $item->name ?></a>
+							<a class="dropdown-item" href="<?php echo get_tag_link($item->term_id); ?>"><?php echo $item->name ?></a>
 							<?php } ?>
 						</div>
 					</li>
