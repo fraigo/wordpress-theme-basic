@@ -18,7 +18,6 @@
       <div class="container">
 				<div class="site-info">
 				<?php
-					
 					do_action( 'demo_credits' );
 				?>
 				<?php
@@ -27,7 +26,7 @@
 				}
 				?>
 				<a href="<?php echo esc_url( __( 'https://franciscoigor.me/', 'demo' ) ); ?>" class="imprint">
-					<?php printf( __( 'Proudly powered by %s', 'demo' ), 'Francisco Igor' ); ?>
+					<?php printf( __( 'Theme by %s', 'demo' ), 'Francisco Igor' ); ?>
 				</a>
 			</div><!-- .site-info -->
       </div>

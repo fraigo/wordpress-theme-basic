@@ -123,12 +123,87 @@ function demo_scripts() {
 add_action( 'wp_enqueue_scripts', 'demo_scripts' );
 
 
-
 function demo_post_thumbnail(){
-
+    add_theme_support( 'post-thumbnails' );
+    add_theme_support( 'widgets' );
 }
+add_action( 'after_setup_theme', 'demo_post_thumbnail' );
 
 
 function demo_entry_meta(){
 	
 }
+
+function nexmag_customize_register( $wp_customize ) {
+
+    $wp_customize->add_panel('custom_theme_panel',array(
+            'priority'=>100,
+            'title'=>'Theme Settings',
+            'description'=>'Custom Theme options'
+     ));
+
+    $config = [
+        "General" => [
+            "google_font" => "Google Font",
+            "mainheader_desc" => [
+                "label" => "Show description",
+                "type" => "checkbox"
+            ]
+        ],
+        "Extra Header" => [
+            "extraheader1" => "Left section1",
+            "extraheader2" => "Center section",
+            "extraheader3" => "Right section"
+        ],
+        "Main Menu" => [
+            "mainheader_home" => [
+                "label" => "Show Home",
+                "type" => "checkbox"
+            ],
+            "mainheader_categories" => [
+                "label" => "Show categories",
+                "type" => "checkbox"
+            ],
+            "mainheader_tags" => [
+                "label" => "Show tags",
+                "type" => "checkbox"
+            ],
+            "mainheader_search" => [
+                "label" => "Show search",
+                "type" => "checkbox"
+            ]
+        ]
+    ];
+    $i = 1;
+    foreach($config as $section => $options){
+        $sectionid = 'extra_header_section'.$i;
+        $wp_customize->add_section($sectionid,array(
+            'priority'=>$i,
+            'title'=>$section,
+            'panel'=>'custom_theme_panel'
+        ));
+        foreach($options as $optkey => $optprops) {
+            $optlabel = $optprops;
+            $opttype = 'text';
+            if (gettype($optprops)=="array"){
+                $optlabel = @$optprops["label"]?:$optkey;
+                $opttype = @$optprops["type"]?:$opttype;
+            }
+            $wp_customize->add_setting($optkey,array(
+                'default'=>'',
+                'type' => 'option',
+                'transport' => 'refresh'
+            ));
+            $wp_customize->add_control($optkey.'control',array(
+                    'type'=>$opttype,
+                    'label'=>$optlabel,
+                    'section'=>$sectionid,
+                    'settings'=>$optkey,
+            ));    
+        }
+        $i++;
+    }
+
+}
+   
+add_action( 'customize_register', 'nexmag_customize_register' );

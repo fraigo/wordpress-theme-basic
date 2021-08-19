@@ -88,3 +88,59 @@ h2 {
 .comment-form #submit{
 	padding:6px 8px;
 }
+
+
+
+.navbar-container{
+	flex-wrap: wrap;	
+}
+
+.navbar-top{
+  width: 100%;
+	font-size: 0.75em;
+}
+
+.navbar-top-center{
+	text-align: center;
+}
+.navbar-menu{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.header-search{
+	display: inline-block;
+}
+
+.header-search h2{
+	display: none;
+}
+
+.navbar-title{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	white-space: normal;
+}
+.navbar-title small{
+	display: inline-block;
+	max-width: 50vw;
+}
+
+.wp-block-search__label, .wp-block-group h2{
+	font-size: 1em;
+	font-weight: bold;
+}
+
+.wp-block-group ol, .wp-block-group ul{
+	padding-inline-start: 0px;
+	padding-left: 8px !important;
+}
+.wp-block-search__inside-wrapper{
+	padding-left: 8px !important;
+}
+#menu-primary-menu{
+	padding-inline-start: 0px;
+	padding-left: 0;
+	list-style-type: none;
+}
