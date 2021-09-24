@@ -144,3 +144,85 @@ h2 {
 	padding-left: 0;
 	list-style-type: none;
 }
+
+.post.sticky{
+	background-color: #ffffee;
+}
+
+.wp-block-button__link{
+ background-color: #678;
+}
+
+.wp-block-cover-text{
+	text-shadow: 1px 1px 2px #ccc, -1px -1px 2px #aaa;
+}
+
+
+.footer{
+	padding: 24px 0;
+}
+.footer-section > div{
+		margin: 0 16px;
+}
+.footer-section{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.footer-section > div{
+	display: flex;
+}
+.theme-author{
+	font-size: 10px;
+	color: #444 !important;
+}
+.header-image{
+	height: 400px;
+	background-size: cover;
+	max-height: 90vh;
+}
+
+
+main > .post {
+	border-color:rgba(0,0,0,0.2);
+}
+.header-image{
+	margin-left: -15%;
+	margin-right: -15%;
+	height: 400px;
+}
+.wp-block-table{
+	clear: both;
+}
+.wp-block-group p, .wp-block-table td{
+	overflow: hidden;
+}
+.wp-block-table td img, .wp-block-group p img{
+	height: auto;
+	float: right;
+	padding-left: 8px;
+	box-sizing: content-box;
+}
+#sidebar #social-navigation{
+	display: none;
+}
+#sidebar .wp-block-group{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+#comments{
+	background-color: rgba(0,0,0,0.1);
+	border-color:rgba(0,0,0,0.2);
+}
+
+#comments h2, #comments h3 {
+	font-size: 20px;
+}
+#comments{
+	font-size: 16px;
+}
+#comments img.avatar{
+	width: 24px;
+	height: 24px
+}

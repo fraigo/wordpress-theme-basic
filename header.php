@@ -10,6 +10,7 @@
  */
 
  $googleFont = get_option('google_font');
+ $googleFontSizes = get_option('google_font_sizes');
 
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> class="no-js">
@@ -22,32 +23,49 @@
     <?php if ($googleFont!='') {?>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=<?=urlencode($googleFont)?>:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=<?=urlencode($googleFont)?>:wght@<?=urlencode($googleFontSizes?:'400;600')?>&display=swap" rel="stylesheet">
     <style>
-        * {
-            font-family: "<?=$googleFont?>", arial, sans;
+        body, td, input, select, textarea {
+            font-family: "<?=$googleFont?>", arial, sans !important;
         }
     </style>
     <?php } ?>
 	<?php wp_head(); ?>
+    <script>
+        window.addEventListener("scroll", function(){
+            var top = document.documentElement.scrollTop || document.body.scrollTop;
+            if (top>2){
+                document.body.setAttribute("scrolling","1");
+            }else{
+                document.body.setAttribute("scrolling","0");
+            }
+        })
+    </script>
 </head>
 <?php
 	$logo=get_custom_logo();
 	$menuLocations = get_nav_menu_locations(); 
 	$menuID = $menuLocations['primary']; 
 	$primaryNav = wp_get_nav_menu_items($menuID);
-	$menuID2 = $menuLocations['secondary']; 
-	$secondaryNav = wp_get_nav_menu_items($menuID2);
+	$menuID2 = $menuLocations['social']; 
+	$socialNav = wp_get_nav_menu_items($menuID2);
 	$categories = get_categories();
 	$tags = get_tags();
+    
+    $show_title = get_option('show_title') == 1;
+    $show_desc = get_option('show_desc') == 1;
+    $showMenuHome = get_option('show_home') == 1;
+    $showMenuCategories = get_option('show_categories') == 1;
+    $showMenuTags = get_option('show_tags') == 1;
+    $showMenuSearch = get_option('show_search') == 1;
 
-    $show_desc = get_option('mainheader_desc') === true;
-    $showMenuHome = get_option('mainheader_home') === true;
-    $showMenuCategories = get_option('mainheader_categories') === true;
-    $showMenuTags = get_option('mainheader_tags') === true;
-    $showMenuSearch = get_option('mainheader_search') === true;
+    //print_r($wp_query);
+    $thumbnail_url_lg = get_the_post_thumbnail_url($wp_query->post->ID, '1920');
+    $thumbnail_url_sm = get_the_post_thumbnail_url($wp_query->post->ID, '1024');
+    $show_header_image = get_option('show_header_image') == 1 && ($thumbnail_url_lg != '');
+    $show_header_full = get_option('show_header_full') == 1;
+    $header_default_height = get_option('header_default_height');
 
-    // print_r($wp_query);
     $isSingle=$wp_query->is_singular;
     $sidebar = '';
     if (!$isSingle){
@@ -59,10 +77,32 @@
 	$custom_logo_id = get_theme_mod( 'custom_logo' );
 	$logourl = wp_get_attachment_url( $custom_logo_id );
     $extraheader = get_option('extraheader1','').get_option('extraheader2','').get_option('extraheader3','');
+
+    $mainNav = [];
+    $allNav = [];
+    foreach($primaryNav as $nav){
+        if ($nav->menu_item_parent>0) {
+            $allNav["m".$nav->menu_item_parent]->items["m".$nav->ID] = $nav;
+        } else {
+            $nav->items = [];
+            $mainNav["m".$nav->ID] = $nav;
+            $allNav["m".$nav->ID] = $nav;
+        }
+    }
+    $secNav = [];
+    $allNav = [];
+    foreach($socialNav as $nav){
+        if ($nav->menu_item_parent>0) {
+            $secNav["m".$nav->menu_item_parent]->items["m".$nav->ID] = $nav;
+        } else {
+            $nav->items = [];
+            $secNav["m".$nav->ID] = $nav;
+            $allNav["m".$nav->ID] = $nav;
+        }
+    }
 ?>
 <body <?php body_class(); ?>>
-
-	<nav class="navbar navbar-container navbar-expand-md navbar-dark sticky-top bg-dark">
+    <nav class="navbar navbar-container navbar-expand-md navbar-dark sticky-top bg-dark">
         <?php if ($extraheader!=''){?>
         <div class="navbar navbar-top">
             <div class="navbar-top-left"><?php echo get_option('extraheader1',''); ?></div>
@@ -70,7 +110,7 @@
             <div class="navbar-top-right"><?php echo get_option('extraheader3',''); ?></div>
         </div>
         <? } ?>
-		<div class="navbar navbar-dark col-md-auto ">
+		<div class="navbar col-md-auto navbar-site">
 			<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" rel="home">
 			<div class="row">
                 <?php if ($logourl) { ?>
@@ -79,7 +119,9 @@
 				</div>
                 <?php } ?>
 				<div class="col-xs-auto ml-2 navbar-title">
+                    <?php if ($show_title) { ?>
 					<h1><?php bloginfo( 'name' ); ?></h1>
+                    <?php } ?>
                     <?php if ($show_desc) { ?>
 					<small><?php echo get_bloginfo( 'description', 'display' ); ?></small>
                     <?php } ?>
@@ -89,7 +131,7 @@
 		</div>
 		<div class="navbar-menu col-md">
 			<div class="row navbar navbar-dark  navbar-expand ">
-				<ul class="navbar-nav mx-auto">
+				<ul class="navbar-nav mx-auto navbar-main">
                     <?php 
 						if (@$showMenuHome) {?>
 					<li class="nav-item active">
@@ -97,15 +139,35 @@
 					</li>
                     <?php } ?>
 					<?php 
-						if ($primaryNav) foreach( $primaryNav as $idx => $link) {?>
-						<li class="nav-item text-nowrap primary-menu">
-							<a class="nav-link" href="<?php echo $link->url ?>"><?php echo $link->title ?></a>
+						if ($primaryNav) foreach( $mainNav as $idx => $link) {?>
+						<li class="nav-item text-nowrap primary-menu" name="<?=$link->post_name?>">
+                            <?php if (count($link->items)) { ?>
+                                <a class="nav-link dropdown-toggle" id="menu<?php echo $link->ID?>" href="<?php echo $link->url ?>" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $link->title ?></a>
+                                <div class="dropdown-menu" aria-labelledby="menu<?php echo $link->ID?>" >
+                                <?php foreach( $link->items as $idx1 => $link1) {?>
+							        <a class="dropdown-item" href="<?php echo $link1->url ?>"><?php echo $link1->title ?></a>
+                                <?php } ?>
+                                </div>
+                            <?php } else { ?>
+                                <a class="nav-link" href="<?php echo $link->url ?>"><?php echo $link->title ?></a>
+                            <?php } ?>
 						</li>
 					<?php } ?>
+                    </ul>
+                    <ul class="navbar-nav mx-auto navbar-social">
 					<?php 
-						if ($secondaryNav) foreach( $secondaryNav as $idx => $link) {?>
-						<li class="nav-item text-nowrap secondary-menu">
-							<a class="nav-link" href="<?php echo $link->url ?>"><?php echo $link->title ?></a>
+						if ($socialNav) foreach( $secNav as $idx => $link) {?>
+						<li class="nav-item text-nowrap social-menu" name="<?=$link->post_name?>">
+                            <?php if (count($link->items)) { ?>
+                                <a class="nav-link dropdown-toggle" id="menu<?php echo $link->ID?>" href="<?php echo $link->url ?>" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $link->title ?></a>
+                                <div class="dropdown-menu" aria-labelledby="menu<?php echo $link->ID?>" >
+                                <?php foreach( $link->items as $idx1 => $link1) {?>
+							        <a class="dropdown-item" target="_blank" href="<?php echo $link1->url ?>"><?php echo $link1->title ?></a>
+                                <?php } ?>
+                                </div>
+                            <?php } else { ?>
+                                <a class="nav-link" target="_blank" test="1" href="<?php echo $link->url ?>"><?php echo $link->title ?></a>
+                            <?php } ?>
 						</li>
 					<?php } ?>
 					<?php 
@@ -140,10 +202,20 @@
 		</div>
 	</nav>
  <main role="main">
-	 <div class="container">
+        <?php if ($show_header_image && $show_header_full) { ?>
+            <div class="header-image" style="background-image:url('<?=$thumbnail_url_lg?>'); height:<?=($header_default_height*1)?:"auto"?>px;" >
+                <!--<h1></h1>-->
+            </div>
+        <?php  } ?>
+        <div class="container">
+             <?php if ($show_header_image && !$show_header_full) { ?>
+            <div class="header-image" style="background-image:url('<?=$thumbnail_url_lg?>'); height:<?=($header_default_height*1)?:"auto"?>px;" >
+                <!--<h1></h1>-->
+            </div>
+            <?php  } ?>
 			<div class="row p-0">
                 <?php if ($sidebar!='') { ?>
-				<div class="col-md-4 p-3 bg-light">
+				<div class="col-md-4 p-3 bg-light sidebar-container">
 					<div id="sidebar" class="sidebar">
 						<?php echo $sidebar ?>
 					</div>

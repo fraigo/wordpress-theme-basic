@@ -15,7 +15,18 @@
 	</div><!-- .site-content -->
 
   <footer class="footer">
-      <div class="container">
+		<div id="footer_section" class="footer-section widget-area container" role="complementary">
+			<div id="footer1">
+			<?php dynamic_sidebar( 'footer_section_1' ); ?>
+			</div>
+			<div id="footer2">
+			<?php dynamic_sidebar( 'footer_section_2' ); ?>
+			</div>
+			<div id="footer3">
+			<?php dynamic_sidebar( 'footer_section_3' ); ?>
+			</div>
+		</div>
+		<div class="container">
 				<div class="site-info">
 				<?php
 					do_action( 'demo_credits' );
@@ -25,7 +36,7 @@
 					the_privacy_policy_link( '', '<span role="separator" aria-hidden="true"></span>' );
 				}
 				?>
-				<a href="<?php echo esc_url( __( 'https://franciscoigor.me/', 'demo' ) ); ?>" class="imprint">
+				<a class="theme-author" href="<?php echo esc_url( __( 'https://franciscoigor.me/', 'demo' ) ); ?>" class="imprint">
 					<?php printf( __( 'Theme by %s', 'demo' ), 'Francisco Igor' ); ?>
 				</a>
 			</div><!-- .site-info -->

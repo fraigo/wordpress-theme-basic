@@ -145,7 +145,16 @@ function nexmag_customize_register( $wp_customize ) {
     $config = [
         "General" => [
             "google_font" => "Google Font",
-            "mainheader_desc" => [
+            "google_font_sizes" => [
+                "label" => "Google Font Sizes",
+                "default" => "400;600"
+            ],
+            "show_title" => [
+                "label" => "Show title",
+                "type" => "checkbox",
+                "default" => '1'
+            ],
+            "show_desc" => [
                 "label" => "Show description",
                 "type" => "checkbox"
             ]
@@ -156,22 +165,36 @@ function nexmag_customize_register( $wp_customize ) {
             "extraheader3" => "Right section"
         ],
         "Main Menu" => [
-            "mainheader_home" => [
+            "show_home" => [
                 "label" => "Show Home",
                 "type" => "checkbox"
             ],
-            "mainheader_categories" => [
+            "show_categories" => [
                 "label" => "Show categories",
                 "type" => "checkbox"
             ],
-            "mainheader_tags" => [
+            "show_tags" => [
                 "label" => "Show tags",
                 "type" => "checkbox"
             ],
-            "mainheader_search" => [
+            "show_search" => [
                 "label" => "Show search",
                 "type" => "checkbox"
             ]
+        ],
+        "Content" => [
+            "show_header_image" => [
+                "label" => "Show Header Post Image",
+                "type" => "checkbox"
+            ],
+            "show_header_full" => [
+                "label" => "Full Width Header Image",
+                "type" => "checkbox"
+            ],
+            "header_default_height" => [
+                "label" => "Default Header Image Height",
+                "type" => "number"
+            ] 
         ]
     ];
     $i = 1;
@@ -185,21 +208,34 @@ function nexmag_customize_register( $wp_customize ) {
         foreach($options as $optkey => $optprops) {
             $optlabel = $optprops;
             $opttype = 'text';
+            $optchoices = [];
+            $default = '';
             if (gettype($optprops)=="array"){
                 $optlabel = @$optprops["label"]?:$optkey;
                 $opttype = @$optprops["type"]?:$opttype;
+                $default = @$optprops["default"]?:$default;
             }
-            $wp_customize->add_setting($optkey,array(
-                'default'=>'',
+            $s_opts = array(
+                'default'=>$default,
                 'type' => 'option',
                 'transport' => 'refresh'
-            ));
-            $wp_customize->add_control($optkey.'control',array(
-                    'type'=>$opttype,
-                    'label'=>$optlabel,
-                    'section'=>$sectionid,
-                    'settings'=>$optkey,
-            ));    
+            );
+            $c_opts = array(
+                'type'=>$opttype,
+                'label'=>$optlabel,
+                'section'=>$sectionid,
+                'settings'=>$optkey,
+            );
+            if ($opttype=="checkbox") {
+                $opttype="select";
+                $c_opts["type"] = "select";
+                $optchoices=["No","Yes"];
+            }
+            if ($opttype=="select") {
+                $c_opts["choices"] = $optchoices;
+            }
+            $wp_customize->add_setting($optkey, $s_opts);
+            $wp_customize->add_control($optkey.'control',$c_opts);    
         }
         $i++;
     }
@@ -207,3 +243,42 @@ function nexmag_customize_register( $wp_customize ) {
 }
    
 add_action( 'customize_register', 'nexmag_customize_register' );
+
+
+function cc_mime_types($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'cc_mime_types');
+
+add_theme_support( 'widgets' );
+
+function theme_sidebars() {
+
+	register_sidebar( array(
+		'name'          => 'Footer section 1',
+		'id'            => 'footer_section_1',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+	register_sidebar( array(
+		'name'          => 'Footer section 2',
+		'id'            => 'footer_section_2',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+	register_sidebar( array(
+		'name'          => 'Footer section 3',
+		'id'            => 'footer_section_3',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+}
+add_action( 'widgets_init', 'theme_sidebars' );
