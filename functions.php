@@ -1,32 +1,32 @@
 <?php
 /**
- * Demo functions and definitions
+ * BasicTheme functions and definitions
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 
 /**
  * Set the content width based on the theme's design and stylesheet.
  *
- * @since Demo 1.0
+ * @since BasicTheme 1.0
  */
 if ( ! isset( $content_width ) ) {
 	$content_width = 660;
 }
 
-if ( ! function_exists( 'demo_setup' ) ) :
+if ( ! function_exists( 'basictheme_setup' ) ) :
 
-	function demo_setup() {
+	function basictheme_setup() {
 
 		/*
 		* Make theme available for translation.
-		* Translations can be filed at WordPress.org. See: https://translate.wordpress.org/projects/wp-themes/demo
-		* If you're building a theme based on demo, use a find and replace
-		* to change 'demo' to the name of your theme in all the template files
+		* Translations can be filed at WordPress.org. See: https://translate.wordpress.org/projects/wp-themes/basictheme
+		* If you're building a theme based on basictheme, use a find and replace
+		* to change 'basictheme' to the name of your theme in all the template files
 		*/
-		load_theme_textdomain( 'demo' );
+		load_theme_textdomain( 'basictheme' );
 
 		// Add default posts and comments RSS feed links to head.
 		add_theme_support( 'automatic-feed-links' );
@@ -41,8 +41,8 @@ if ( ! function_exists( 'demo_setup' ) ) :
 
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus( array(
-			'primary' => __( 'Primary Menu',      'demo' ),
-			'social'  => __( 'Social Links Menu', 'demo' ),
+			'primary' => __( 'Primary Menu',      'basictheme' ),
+			'social'  => __( 'Social Links Menu', 'basictheme' ),
 		) );
 
 		/*
@@ -65,7 +65,7 @@ if ( ! function_exists( 'demo_setup' ) ) :
 		/*
 		* Enable support for custom logo.
 		*
-		* @since Demo 1.5
+		* @since BasicTheme 1.5
 		*/
 		add_theme_support( 'custom-logo', array(
 			'height'      => 248,
@@ -75,22 +75,22 @@ if ( ! function_exists( 'demo_setup' ) ) :
 
 		
 	}
-endif; // demo_setup
+endif; // basictheme_setup
 
-add_action( 'after_setup_theme', 'demo_setup' );
+add_action( 'after_setup_theme', 'basictheme_setup' );
 
 /**
  * Register widget area.
  *
- * @since Demo 1.0
+ * @since BasicTheme 1.0
  *
  * @link https://codex.wordpress.org/Function_Reference/register_sidebar
  */
-function demo_widgets_init() {
+function basictheme_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Widget Area', 'demo' ),
+		'name'          => __( 'Widget Area', 'basictheme' ),
 		'id'            => 'sidebar-1',
-		'description'   => __( 'Add widgets here to appear in your sidebar.', 'demo' ),
+		'description'   => __( 'Add widgets here to appear in your sidebar.', 'basictheme' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
 		'before_title'  => '<h2 class="widget-title">',
@@ -98,39 +98,39 @@ function demo_widgets_init() {
 	) );
 }
 
-add_action( 'widgets_init', 'demo_widgets_init' );
+add_action( 'widgets_init', 'basictheme_widgets_init' );
 
 
 /**
  * Enqueue scripts and styles.
  *
- * @since Demo 1.0
+ * @since BasicTheme 1.0
  */
-function demo_scripts() {
+function basictheme_scripts() {
 	
 	// Load our main stylesheet.
-	wp_enqueue_style( 'demo-style', get_stylesheet_uri() );
+	wp_enqueue_style( 'basictheme-style', get_stylesheet_uri() );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 
 	if ( is_singular() && wp_attachment_is_image() ) {
-		wp_enqueue_script( 'demo-keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array( 'jquery' ), '20141010' );
+		wp_enqueue_script( 'basictheme-keyboard-image-navigation', get_template_directory_uri() . '/js/keyboard-image-navigation.js', array( 'jquery' ), '20141010' );
 	}
 
 }
-add_action( 'wp_enqueue_scripts', 'demo_scripts' );
+add_action( 'wp_enqueue_scripts', 'basictheme_scripts' );
 
 
-function demo_post_thumbnail(){
+function basictheme_post_thumbnail(){
     add_theme_support( 'post-thumbnails' );
     add_theme_support( 'widgets' );
 }
-add_action( 'after_setup_theme', 'demo_post_thumbnail' );
+add_action( 'after_setup_theme', 'basictheme_post_thumbnail' );
 
 
-function demo_entry_meta(){
+function basictheme_entry_meta(){
 	
 }
 

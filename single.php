@@ -3,8 +3,8 @@
  * The template for displaying all single posts and attachments
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 
 get_header(); ?>
@@ -30,11 +30,11 @@ get_header(); ?>
 
 			// Previous/next post navigation.
 			the_post_navigation( array(
-				'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'demo' ) . '</span> ' .
-					'<span class="screen-reader-text">' . __( 'Next post:', 'demo' ) . '</span> ' .
+				'next_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Next', 'basictheme' ) . '</span> ' .
+					'<span class="screen-reader-text">' . __( 'Next post:', 'basictheme' ) . '</span> ' .
 					'<span class="post-title">%title</span>',
-				'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'demo' ) . '</span> ' .
-					'<span class="screen-reader-text">' . __( 'Previous post:', 'demo' ) . '</span> ' .
+				'prev_text' => '<span class="meta-nav" aria-hidden="true">' . __( 'Previous', 'basictheme' ) . '</span> ' .
+					'<span class="screen-reader-text">' . __( 'Previous post:', 'basictheme' ) . '</span> ' .
 					'<span class="post-title">%title</span>',
 			) );
 

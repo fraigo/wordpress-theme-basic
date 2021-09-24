@@ -7,8 +7,8 @@
  * other "pages" on your WordPress site will use a different template.
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 
 get_header(); ?>

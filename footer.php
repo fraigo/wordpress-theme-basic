@@ -5,8 +5,8 @@
  * Contains the closing of the "site-content" div and all content after.
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 ?>
 				</div>
@@ -29,15 +29,15 @@
 		<div class="container">
 				<div class="site-info">
 				<?php
-					do_action( 'demo_credits' );
+					do_action( 'basictheme_credits' );
 				?>
 				<?php
 				if ( function_exists( 'the_privacy_policy_link' ) ) {
 					the_privacy_policy_link( '', '<span role="separator" aria-hidden="true"></span>' );
 				}
 				?>
-				<a class="theme-author" href="<?php echo esc_url( __( 'https://franciscoigor.me/', 'demo' ) ); ?>" class="imprint">
-					<?php printf( __( 'Theme by %s', 'demo' ), 'Francisco Igor' ); ?>
+				<a class="theme-author" href="<?php echo esc_url( __( 'https://franciscoigor.me/', 'basictheme' ) ); ?>" class="imprint">
+					<?php printf( __( 'Theme by %s', 'basictheme' ), 'Francisco Igor' ); ?>
 				</a>
 			</div><!-- .site-info -->
       </div>

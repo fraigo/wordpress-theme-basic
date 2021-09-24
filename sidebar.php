@@ -3,8 +3,8 @@
  * The sidebar containing the main widget area
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 
 if ( has_nav_menu( 'primary' ) || has_nav_menu( 'social' ) || is_active_sidebar( 'sidebar-1' )  ) : ?>

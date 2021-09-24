@@ -5,13 +5,13 @@
  * Learn more: {@link https://codex.wordpress.org/Template_Hierarchy}
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php demo_post_thumbnail(); ?>
+	<?php basictheme_post_thumbnail(); ?>
 
 	<header class="entry-header">
 		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
@@ -24,13 +24,13 @@
 	<?php if ( 'post' == get_post_type() ) : ?>
 
 		<footer class="entry-footer">
-			<?php demo_entry_meta(); ?>
-			<?php edit_post_link( __( 'Edit', 'demo' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php basictheme_entry_meta(); ?>
+			<?php edit_post_link( __( 'Edit', 'basictheme' ), '<span class="edit-link">', '</span>' ); ?>
 		</footer><!-- .entry-footer -->
 
 	<?php else : ?>
 
-		<?php edit_post_link( __( 'Edit', 'demo' ), '<footer class="entry-footer"><span class="edit-link">', '</span></footer><!-- .entry-footer -->' ); ?>
+		<?php edit_post_link( __( 'Edit', 'basictheme' ), '<footer class="entry-footer"><span class="edit-link">', '</span></footer><!-- .entry-footer -->' ); ?>
 
 	<?php endif; ?>
 

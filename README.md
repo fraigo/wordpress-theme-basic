@@ -1,5 +1,5 @@
-# wordpress-theme-demo
-Demo wordpress theme using Bootstrap 4
+# wordpress-basic-theme
+BasicTheme wordpress theme using Bootstrap 4
 
 ## Overview
 * Contributors: Francisco Igor
@@ -22,7 +22,7 @@ A simplified and minimal theme using Bootstrap 4. It includes:
 ## Installation
 
 1. In your admin panel, go to Appearance -> Themes and click the 'Add New' button.
-2. Type in Demo in the search form and press the 'Enter' key on your keyboard.
+2. Type in BasicTheme in the search form and press the 'Enter' key on your keyboard.
 3. Click on the 'Activate' button to use your new theme right away.
 4. Navigate to Appearance > Customize in your admin panel and customize to taste.
 
@@ -45,7 +45,7 @@ GNU General Public License for more details.
 
 ## Third party resources 
 
-Demo Theme bundles or references the following third-party resources:
+BasicTheme Theme bundles or references the following third-party resources:
 
 *Bootstrap 4.1
   * Licenses: MIT

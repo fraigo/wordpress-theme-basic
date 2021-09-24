@@ -5,8 +5,8 @@
  * Displays all of the head element and everything up until the "site-content" div.
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 
  $googleFont = get_option('google_font');

@@ -5,20 +5,20 @@
  * Used for both single and index/archive/search.
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php demo_post_thumbnail(); ?>
+	<?php basictheme_post_thumbnail(); ?>
 
 	<header class="entry-header">
 		<?php
 			if ( is_single() ) :
-				the_title( sprintf( '<h1 class="entry-title"><a href="%s">', esc_url( demo_get_link_url() ) ), '</a></h1>' );
+				the_title( sprintf( '<h1 class="entry-title"><a href="%s">', esc_url( basictheme_get_link_url() ) ), '</a></h1>' );
 			else :
-				the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( demo_get_link_url() ) ), '</a></h2>' );
+				the_title( sprintf( '<h2 class="entry-title"><a href="%s">', esc_url( basictheme_get_link_url() ) ), '</a></h2>' );
 			endif;
 		?>
 	</header>
@@ -28,16 +28,16 @@
 		<?php
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
-				__( 'Continue reading %s', 'demo' ),
+				__( 'Continue reading %s', 'basictheme' ),
 				the_title( '<span class="screen-reader-text">', '</span>', false )
 			) );
 
 			wp_link_pages( array(
-				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'demo' ) . '</span>',
+				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'basictheme' ) . '</span>',
 				'after'       => '</div>',
 				'link_before' => '<span>',
 				'link_after'  => '</span>',
-				'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'demo' ) . ' </span>%',
+				'pagelink'    => '<span class="screen-reader-text">' . __( 'Page', 'basictheme' ) . ' </span>%',
 				'separator'   => '<span class="screen-reader-text">, </span>',
 			) );
 		?>
@@ -52,8 +52,8 @@
 	?>
 
 	<footer class="entry-footer">
-		<?php demo_entry_meta(); ?>
-		<?php edit_post_link( __( 'Edit', 'demo' ), '<span class="edit-link">', '</span>' ); ?>
+		<?php basictheme_entry_meta(); ?>
+		<?php edit_post_link( __( 'Edit', 'basictheme' ), '<span class="edit-link">', '</span>' ); ?>
 	</footer>
 	<!-- .entry-footer -->
 

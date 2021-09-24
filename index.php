@@ -10,8 +10,8 @@
  * Learn more: {@link https://codex.wordpress.org/Template_Hierarchy}
  *
  * @package WordPress
- * @subpackage Demo
- * @since Demo 1.0
+ * @subpackage BasicTheme
+ * @since BasicTheme 1.0
  */
 
 get_header(); ?>
@@ -43,9 +43,9 @@ get_header(); ?>
 
 			// Previous/next page navigation.
 			the_posts_pagination( array(
-				'prev_text'          => __( 'Previous page', 'demo' ),
-				'next_text'          => __( 'Next page', 'demo' ),
-				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'demo' ) . ' </span>',
+				'prev_text'          => __( 'Previous page', 'basictheme' ),
+				'next_text'          => __( 'Next page', 'basictheme' ),
+				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'basictheme' ) . ' </span>',
 			) );
 
 		// If no content, include the "No posts found" template.
