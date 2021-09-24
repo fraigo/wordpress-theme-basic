@@ -107,6 +107,9 @@ h2 {
 	display: flex;
 	justify-content: flex-end;
 }
+.primary-menu{
+	position: relative;
+}
 
 .header-search{
 	display: inline-block;
@@ -210,6 +213,9 @@ main > .post {
 	border: 0;
 	margin: 0;
 	padding: 0;
+}
+#sidebar ul.sub-menu ul.sub-menu {
+	display: none;
 }
 #comments{
 	background-color: rgba(0,0,0,0.1);
