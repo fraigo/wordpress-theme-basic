@@ -22,10 +22,6 @@ body{
 	position: relative;
 }
 
-main {
-	
-}
-
 .widget ul {
 	list-style: none;
 	padding-left: 8px;
@@ -156,6 +152,9 @@ article img{
 	max-width: 100%;
 }
 article figure{
+	max-width: 100%;
+}
+.entry-content iframe {
 	max-width: 100%;
 }
 
